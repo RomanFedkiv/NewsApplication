@@ -1,10 +1,6 @@
 package com.example.roman.news.ui
 
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.os.Handler
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -13,28 +9,23 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import com.example.roman.news.R
 import com.example.roman.news.data.model.News
-import com.example.roman.news.presentation.topHeadlines.TopHeadlinesContract
+import com.example.roman.news.presentation.news.NewsContract
 import com.example.roman.news.ui.adapter.TopHeadlineAdapter
-import com.squareup.picasso.Picasso
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_drawer.*
 import kotlinx.android.synthetic.main.app_bar_drawer.*
 import kotlinx.android.synthetic.main.content_drawer.*
 import javax.inject.Inject
-import android.os.Looper
-import android.support.design.R.id.visible
-import android.util.Log
 import android.view.View
 import com.example.roman.news.ui.adapter.SearchAdapter
 import com.jakewharton.rxbinding2.widget.RxTextView
-import com.squareup.picasso.Target
 import java.util.concurrent.TimeUnit
 
 
-class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, TopHeadlinesContract.View {
+class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, NewsContract.MainView {
 
     @Inject
-    override lateinit var presenter : TopHeadlinesContract.Presenter
+    override lateinit var presenter : NewsContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,14 +42,10 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     }
 
     override fun showSearchNews(listNews: List<News>) {
-        listNews.forEach {
-            Log.i("tttttt", it.title + ",")
-        }
         (search_list.adapter as SearchAdapter).updateList(listNews)
     }
 
     fun initView() {
-
         fab.setOnClickListener {
             news_list.smoothScrollToPosition(0)
         }
@@ -70,7 +57,11 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
         nav_view.setNavigationItemSelectedListener(this)
         news_list.layoutManager = LinearLayoutManager(this)
-        news_list.adapter = TopHeadlineAdapter()
+
+        news_list.adapter = TopHeadlineAdapter{
+            presenter.goToDetailView(it)
+        }
+
         search_list.layoutManager = LinearLayoutManager(this)
         search_list.adapter = SearchAdapter()
         search_button.setOnClickListener {
@@ -80,6 +71,7 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 initSearch()
         }
     }
+
     private fun initSearch() {
         val queryObserver = RxTextView.textChanges(query_input)
                 .skipInitialValue()
@@ -95,8 +87,8 @@ class DrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             super.onBackPressed()
         }
     }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         when (item.itemId) {
         }
         drawer_layout.closeDrawer(GravityCompat.START)

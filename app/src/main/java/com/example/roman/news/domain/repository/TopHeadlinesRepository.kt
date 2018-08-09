@@ -5,5 +5,7 @@ import io.reactivex.Single
 
 interface TopHeadlinesRepository {
 
-    fun getTopHeadlinesNews() : Single<List<News>>
+    fun updateNews() : Single<List<News>>
+
+    fun getNews() : Single<List<News>>
 }

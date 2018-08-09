@@ -1,4 +1,4 @@
-package com.example.roman.news.domain.interactor.topHeadlines
+package com.example.roman.news.domain.interactor.news
 
 import android.util.Log
 import com.example.roman.news.data.model.News

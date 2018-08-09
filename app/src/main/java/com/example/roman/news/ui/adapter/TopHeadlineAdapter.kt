@@ -10,7 +10,9 @@ import com.example.roman.news.data.model.News
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_top_headlines.view.*
 
-class TopHeadlineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class TopHeadlineAdapter(
+        private val itemClickListener: (News) -> Unit
+) : RecyclerView.Adapter<TopHeadlinesHolder>(){
 
     private var listNews : List<News> = listOf()
 
@@ -19,29 +21,15 @@ class TopHeadlineAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopHeadlinesHolder {
         val view = LayoutInflater
                 .from(parent.context)
                 .inflate(R.layout.item_top_headlines, parent, false)
-        return ViewHolder(view)
+        return TopHeadlinesHolder(view, itemClickListener)
     }
     override fun getItemCount(): Int = listNews.size
 
-
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ViewHolder).bind(listNews[position])
-    }
-
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(news: News): Unit = with(itemView) {
-            title_textView.text = news.title
-            publishedAt_textView.text = news.publishedAt
-
-            Picasso.get()
-                    .load(news.urlToImage)
-                    .into(image_top_headlines)
-
-        }
+    override fun onBindViewHolder(holder: TopHeadlinesHolder, position: Int) {
+        holder.bind(listNews[position])
     }
 }
