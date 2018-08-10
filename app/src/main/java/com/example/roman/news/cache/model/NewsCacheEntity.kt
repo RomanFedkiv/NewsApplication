@@ -7,12 +7,12 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = NewsDao.TABLE_NAME)
 data class NewsCacheEntity (
-        val source : String,
-        val description : String,
-        val title: String,
-        val url : String,
-        val urlToImage: String,
-        val publishedAt: String,
+        val source : String?,
+        val description : String?,
+        val title: String?,
+        val url : String?,
+        val urlToImage: String?,
+        val publishedAt: String?,
         @PrimaryKey(autoGenerate = true)
         var id: Long = 0)
 

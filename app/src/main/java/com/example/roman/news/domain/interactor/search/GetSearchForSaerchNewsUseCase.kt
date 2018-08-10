@@ -1,4 +1,4 @@
-package com.example.roman.news.domain.interactor.news
+package com.example.roman.news.domain.interactor.search
 
 import android.util.Log
 import com.example.roman.news.data.model.News
@@ -12,7 +12,7 @@ import retrofit2.HttpException
 import java.io.InterruptedIOException
 import javax.inject.Inject
 
-class GetSearchNewsUseCase @Inject constructor(
+class GetSearchForSaerchNewsUseCase @Inject constructor(
         io: IOThreadFactory,
         ui: UIThreadFactory,
         private val searchRepository: SearchNewsRepository
@@ -21,8 +21,8 @@ class GetSearchNewsUseCase @Inject constructor(
     override fun buildUseCase(param: Observable<String>) = param
             .flatMapSingle {
                 Log.i("query3", it)
-                searchRepository.searchNews(it)
-                        .onErrorResumeNext {
+                searchRepository.searchNewsForNewsInput(it)
+                        .onErrorResumeNext { Log.i("Error", it.toString())
                             when (it) {
                             //TODO this is OkHTTPClient timeout feature. Fix this in future
                                 is InterruptedIOException -> Single.just(listOf())

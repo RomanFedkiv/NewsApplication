@@ -1,5 +1,6 @@
 package com.example.roman.news.remote
 
+import android.util.Log
 import com.example.roman.news.data.model.News
 import com.example.roman.news.data.repository.SearchNewsRemote
 import com.example.roman.news.remote.mapper.NewsMapper
@@ -14,6 +15,5 @@ class SearchNewsRemoteImpl @Inject constructor(
     override fun searchNews(query: String): Single<List<News>> =
         api.searchNews(query, APIConfig.API_KEY)
                 .map { it.data }
-                .map { it.map { mapper.map(it)} }
-
+                .map { it.map(mapper::map) }
 }

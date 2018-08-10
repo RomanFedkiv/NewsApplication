@@ -4,15 +4,20 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import com.example.roman.news.cache.db.converter.ListConverter
+import com.example.roman.news.cache.db.dao.ConfigDao
 import com.example.roman.news.cache.db.dao.NewsDao
 import com.example.roman.news.cache.model.NewsCacheEntity
+import com.example.roman.news.cache.model.QueryCacheEntity
 
 @Database(entities = [
-    NewsCacheEntity::class
+    NewsCacheEntity::class,
+    QueryCacheEntity::class
 ], version = 1)
 @TypeConverters(value = [ListConverter::class])
 abstract class AppDB : RoomDatabase() {
 
     abstract fun newsDao(): NewsDao
+
+    abstract fun configDao(): ConfigDao
 
 }

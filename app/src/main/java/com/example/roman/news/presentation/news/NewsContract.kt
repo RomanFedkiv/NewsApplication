@@ -13,15 +13,10 @@ interface NewsContract {
         fun showNews(listNews: List<News>)
 
         fun showError()
-
-        fun showSearchNews(listNews: List<News>)
     }
 
 
     interface Presenter : BasePresenter {
-
-        fun initSearch(queryObserver: Observable<String>)
-
-        fun goToDetailView(news: News)
+        fun clearConfig()
     }
 }

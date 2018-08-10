@@ -9,7 +9,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.NoActionBar">
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -26,9 +26,8 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay">
             </android.support.v7.widget.Toolbar>
 
-
             <TextView
-                android:id="@+id/news_text_view"
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -37,11 +36,12 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="News"
-                android:textSize="32dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
 
             <ImageView
                 android:id="@+id/search_button"
@@ -55,33 +55,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_search" />
 
-            <EditText
-                android:id="@+id/query_input"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
 
         </android.support.constraint.ConstraintLayout>
 
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_drawer" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/search_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

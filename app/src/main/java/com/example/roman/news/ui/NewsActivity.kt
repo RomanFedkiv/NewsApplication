@@ -1,11 +1,16 @@
 package com.example.roman.news.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.constraint.ConstraintSet
 import android.support.design.widget.NavigationView
+import android.support.transition.ChangeBounds
+import android.support.transition.TransitionManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.MenuItem
 import com.example.roman.news.R
 import com.example.roman.news.data.model.News
@@ -13,12 +18,14 @@ import com.example.roman.news.presentation.news.NewsContract
 import com.example.roman.news.ui.adapter.TopHeadlineAdapter
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_drawer.*
-import kotlinx.android.synthetic.main.app_bar_drawer.*
 import kotlinx.android.synthetic.main.content_drawer.*
 import javax.inject.Inject
 import android.view.View
+import android.view.animation.AnticipateOvershootInterpolator
 import com.example.roman.news.ui.adapter.SearchAdapter
 import com.jakewharton.rxbinding2.widget.RxTextView
+import kotlinx.android.synthetic.main.app_bar_drawer.*
+
 import java.util.concurrent.TimeUnit
 
 
@@ -38,12 +45,10 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun showNews(listNews: List<News>) {
-        (news_list.adapter as TopHeadlineAdapter).updateList(listNews)
+        Log.i("123",listNews.size.toString())
+        ( news_list.adapter as TopHeadlineAdapter).updateList(listNews)
     }
 
-    override fun showSearchNews(listNews: List<News>) {
-        (search_list.adapter as SearchAdapter).updateList(listNews)
-    }
 
     fun initView() {
         fab.setOnClickListener {
@@ -56,28 +61,20 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
-        news_list.layoutManager = LinearLayoutManager(this)
 
-        news_list.adapter = TopHeadlineAdapter{
-            presenter.goToDetailView(it)
-        }
+        initRecyclerView()
 
-        search_list.layoutManager = LinearLayoutManager(this)
-        search_list.adapter = SearchAdapter()
         search_button.setOnClickListener {
-                news_text_view.visibility = View.INVISIBLE
-                query_input.visibility = View.VISIBLE
-                search_list.visibility = View.VISIBLE
-                initSearch()
+            val intent = Intent(this,SearchActivity::class.java)
+            startActivity(intent)
         }
     }
 
-    private fun initSearch() {
-        val queryObserver = RxTextView.textChanges(query_input)
-                .skipInitialValue()
-                .map { it.toString() }
-                .debounce(300, TimeUnit.MILLISECONDS)
-        presenter.initSearch(queryObserver)
+    private fun initRecyclerView(){
+        news_list.layoutManager = LinearLayoutManager(this)
+        news_list.adapter = TopHeadlineAdapter{
+
+        }
     }
 
     override fun onBackPressed() {

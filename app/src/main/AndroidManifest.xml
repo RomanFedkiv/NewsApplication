@@ -22,6 +22,9 @@
         <activity android:name=".ui.DetailNewsActivity">
 
         </activity>
+        <activity android:name=".ui.SearchActivity">
+
+        </activity>
 
     </application>
 
