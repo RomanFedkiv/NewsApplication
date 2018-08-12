@@ -9,6 +9,27 @@
             android:icon="@drawable/ic_menu_black_24dp"
             android:title="Ukraine"
             />
+        <item
+            android:id="@+id/rus_item"
+            android:icon="@drawable/ic_menu_black_24dp"
+            android:title="Russia"
+            />
+        <item
+            android:id="@+id/eng_item"
+            android:icon="@drawable/ic_menu_black_24dp"
+            android:title="England"
+            />
+        <item
+            android:id="@+id/usa_item"
+            android:icon="@drawable/ic_menu_black_24dp"
+            android:title="USA"
+            />
+        <item
+            android:id="@+id/ger_item"
+            android:icon="@drawable/ic_menu_black_24dp"
+            android:title="Germany"
+            />
+
     </group>
 
 </menu>

@@ -8,7 +8,9 @@ import com.example.roman.news.R
 import com.example.roman.news.data.model.News
 import kotlinx.android.synthetic.main.item_search_result.view.*
 
-class SearchAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class SearchAdapter (
+        private val itemClickListener: (News) -> Unit
+) :RecyclerView.Adapter<SearchHolder>(){
 
     private var listNews : List<News> = listOf()
 
@@ -17,23 +19,18 @@ class SearchAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchHolder {
         val view = LayoutInflater
                 .from(parent.context)
                 .inflate(R.layout.item_search_result, parent, false)
-        return ViewHolder(view)
+        return SearchHolder(view, itemClickListener)
     }
     override fun getItemCount(): Int = listNews.size
 
 
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ViewHolder).bind(listNews[position])
+    override fun onBindViewHolder(holder: SearchHolder, position: Int) {
+        holder.bind(listNews[position])
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(news: News): Unit = with(itemView) {
-            search_text_view.setText(news.title)
-        }
-    }
 }

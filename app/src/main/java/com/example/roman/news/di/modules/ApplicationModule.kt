@@ -2,25 +2,29 @@ package com.example.roman.news.di.modules
 
 import android.app.Application
 import android.content.Context
+import com.example.roman.news.cache.ConfigNewsCacheImpl
+import com.example.roman.news.cache.NewsCacheImpl
+import com.example.roman.news.cache.db.dao.ConfigDao
+import com.example.roman.news.cache.db.dao.NewsDao
+import com.example.roman.news.cache.mapper.NewsCacheMapper
+import com.example.roman.news.cache.mapper.QueryCacheMapper
+import com.example.roman.news.data.NewsConfigRepositoryImpl
 import com.example.roman.news.data.SearchNewsRepositoryImpl
-import com.example.roman.news.data.TopHeadlinesRepositoryImpl
-import com.example.roman.news.data.model.ListNews
-import com.example.roman.news.data.model.News
+import com.example.roman.news.data.NewsRepositoryImpl
+import com.example.roman.news.data.repository.ConfigNewsCache
+import com.example.roman.news.data.repository.NewsCache
 import com.example.roman.news.data.repository.SearchNewsRemote
-import com.example.roman.news.data.repository.TopHeadlinesRemote
+import com.example.roman.news.data.repository.NewsRemote
 import com.example.roman.news.di.scopes.PerApplication
 import com.example.roman.news.domain.IOThreadFactory
 import com.example.roman.news.domain.UIThreadFactory
+import com.example.roman.news.domain.repository.NewsConfigRepository
 import com.example.roman.news.domain.repository.SearchNewsRepository
 import com.example.roman.news.domain.repository.TopHeadlinesRepository
 import com.example.roman.news.remote.NewsAPI
 import com.example.roman.news.remote.SearchNewsRemoteImpl
-import com.example.roman.news.remote.TopHeadlinesRemoteImpl
-import com.example.roman.news.remote.mapper.ListNewsMapper
-import com.example.roman.news.remote.mapper.Mapper
+import com.example.roman.news.remote.NewsRemoteImpl
 import com.example.roman.news.remote.mapper.NewsMapper
-import com.example.roman.news.remote.model.ListNewsRemoteEntity
-import com.example.roman.news.remote.model.NewsRemoteEntity
 import dagger.Module
 import dagger.Provides
 
@@ -39,27 +43,42 @@ class ApplicationModule {
     @Provides @PerApplication
     fun provideTopHeadlinesRemoteImpl(
             api: NewsAPI,
-            mapper : ListNewsMapper
-    ) = TopHeadlinesRemoteImpl(api, mapper) as TopHeadlinesRemote
+            mapper : NewsMapper
+    ) = NewsRemoteImpl(api, mapper) as NewsRemote
 
     @Provides @PerApplication
     fun provideTopHeadlinesRepositoryImpl(
-            remote: TopHeadlinesRemote
-    ) = TopHeadlinesRepositoryImpl(remote) as TopHeadlinesRepository
+            remote: NewsRemote,
+            cache : NewsCache
+    ) = NewsRepositoryImpl(remote,cache) as TopHeadlinesRepository
 
     @Provides @PerApplication
     fun provideSearchNewsRemoteImpl(
             api: NewsAPI,
-            mapper : ListNewsMapper
+            mapper : NewsMapper
     ) = SearchNewsRemoteImpl(api, mapper) as SearchNewsRemote
 
     @Provides @PerApplication
     fun provideSearchNewsRepositoryImpl(
-            remote: SearchNewsRemote
-    ) = SearchNewsRepositoryImpl(remote) as SearchNewsRepository
+            remote: SearchNewsRemote,
+            cache : ConfigNewsCache
+    ) = SearchNewsRepositoryImpl(remote,cache) as SearchNewsRepository
 
     @Provides @PerApplication
-    fun provideListNewsMapper(
-            mapper : NewsMapper
-    ) = ListNewsMapper(mapper)  as Mapper<ListNewsRemoteEntity,ListNews>
+    fun provideNewsCacheImpl(
+            newsDao: NewsDao,
+            mapper: NewsCacheMapper
+    ) = NewsCacheImpl(newsDao,mapper) as NewsCache
+
+    @Provides @PerApplication
+    fun provideConfigNewsCacheImpl(
+            configDao: ConfigDao,
+            mapper: QueryCacheMapper
+    ) = ConfigNewsCacheImpl(configDao,mapper) as ConfigNewsCache
+
+    @Provides @PerApplication
+    fun provideNewsConfigRepositoryImpl(
+            cache: ConfigNewsCache
+    ) = NewsConfigRepositoryImpl(cache) as NewsConfigRepository
+
 }
