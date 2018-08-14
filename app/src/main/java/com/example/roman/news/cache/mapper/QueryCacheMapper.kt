@@ -2,16 +2,16 @@ package com.example.roman.news.cache.mapper
 
 
 import com.example.roman.news.cache.model.QueryCacheEntity
-import com.example.roman.news.data.model.ConfigNews
+import com.example.roman.news.data.model.ConfigSearchNews
 import javax.inject.Inject
 
-class QueryCacheMapper @Inject constructor() : Mapper<QueryCacheEntity, ConfigNews>{
+class QueryCacheMapper @Inject constructor() : Mapper<QueryCacheEntity, ConfigSearchNews>{
 
     override fun mapFromCache(cache: QueryCacheEntity) = with(cache) {
-        ConfigNews(query)
+        ConfigSearchNews(query)
     }
 
-    override fun mapToCache(data: ConfigNews) = with(data) {
+    override fun mapToCache(data: ConfigSearchNews) = with(data) {
         QueryCacheEntity(query)
     }
 }

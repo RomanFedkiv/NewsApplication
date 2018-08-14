@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 interface NewsRemote {
 
-    fun getTopHeadlines() : Single<List<News>>
+    fun getTopHeadlines(country : String) : Single<List<News>>
 }

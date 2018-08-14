@@ -1,14 +1,15 @@
 package com.example.roman.news.domain.repository
 
-import com.example.roman.news.data.model.ConfigNews
+import com.example.roman.news.data.model.News
+import com.example.roman.news.data.model.NewsConfig
 import io.reactivex.Completable
 import io.reactivex.Single
 
 interface NewsConfigRepository {
 
-    fun createConfig(config: ConfigNews): Completable
+    fun createConfig(configNews: NewsConfig): Completable
 
-    fun getConfig(): Single<List<ConfigNews>>
+    fun getConfig(): Single<NewsConfig>
 
     fun deleteConfig(): Completable
 }

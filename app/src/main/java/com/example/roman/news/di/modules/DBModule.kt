@@ -31,7 +31,11 @@ class DBModule {
 
     @Provides
     @PerApplication
-    fun provideConfigNewsDao(db: AppDB) = db.configDao()
+    fun provideConfigNewsDao(db: AppDB) = db.configNewsDao()
+
+    @Provides
+    @PerApplication
+    fun provideConfigSearchNewsDao(db: AppDB) = db.configNewsSearchDao()
 
     companion object {
         const val DB_NAME = "news.db"

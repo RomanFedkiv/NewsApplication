@@ -2,6 +2,7 @@ package com.example.roman.news.cache.model
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import com.example.roman.news.cache.db.dao.ConfigNewsDao
 import com.example.roman.news.cache.db.dao.NewsDao
 import com.google.gson.annotations.SerializedName
 

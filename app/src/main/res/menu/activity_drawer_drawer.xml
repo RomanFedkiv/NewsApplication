@@ -4,14 +4,15 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+        <item android:title="Top Headlines">
         <item
             android:id="@+id/ukr_item"
-            android:icon="@drawable/ic_menu_black_24dp"
+            android:icon="@drawable/ic_top_headlines"
             android:title="Ukraine"
             />
         <item
             android:id="@+id/rus_item"
-            android:icon="@drawable/ic_menu_black_24dp"
+            android:icon="@drawable/ukraine_l"
             android:title="Russia"
             />
         <item
@@ -29,7 +30,22 @@
             android:icon="@drawable/ic_menu_black_24dp"
             android:title="Germany"
             />
-
+        <item
+            android:id="@+id/pol_item"
+            android:icon="@drawable/ic_menu_black_24dp"
+            android:title="Poland"
+            />
+        <item
+            android:id="@+id/tur_item"
+            android:icon="@drawable/ic_menu_black_24dp"
+            android:title="Turkey"
+            />
+        <item
+            android:id="@+id/jap_item"
+            android:icon="@drawable/ic_menu_black_24dp"
+            android:title="Japan"
+            />
+        </item>
     </group>
 
 </menu>

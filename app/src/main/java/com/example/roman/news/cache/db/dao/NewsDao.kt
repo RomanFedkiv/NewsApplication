@@ -13,7 +13,7 @@ interface NewsDao {
     }
 
     @Insert
-    fun insert(vararg lessons: NewsCacheEntity)
+    fun insert(vararg news: NewsCacheEntity)
 
     @Query("DELETE FROM $TABLE_NAME")
     fun deleteAll()

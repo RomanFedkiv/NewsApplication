@@ -1,6 +1,5 @@
-package com.example.roman.news.domain.interactor.config
+package com.example.roman.news.domain.interactor.configNews
 
-import com.example.roman.news.data.model.ConfigNews
 import com.example.roman.news.domain.IOThreadFactory
 import com.example.roman.news.domain.UIThreadFactory
 import com.example.roman.news.domain.interactor.utils.completable.CompletableUseCase

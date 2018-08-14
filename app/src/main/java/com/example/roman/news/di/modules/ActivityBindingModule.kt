@@ -19,4 +19,7 @@ abstract class ActivityBindingModule {
     @PerActivity
     abstract fun bindSearchActivity(): SearchActivity
 
+    @ContributesAndroidInjector(modules = [DetailNewsModule::class])
+    @PerActivity
+    abstract fun bindDetailNewsActivity(): DetailNewsActivity
 }

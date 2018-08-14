@@ -6,14 +6,14 @@ import android.arch.persistence.room.Query
 import com.example.roman.news.cache.model.QueryCacheEntity
 
 @Dao
-interface ConfigDao {
+interface ConfigSearchNewsDao {
 
     companion object {
         const val TABLE_NAME = "query"
     }
 
     @Insert
-    fun insertQuery(lessons: QueryCacheEntity)
+    fun insertQuery(query: QueryCacheEntity)
 
     @Query("DELETE FROM $TABLE_NAME")
     fun deleteAll()

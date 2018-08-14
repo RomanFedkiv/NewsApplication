@@ -1,42 +1,58 @@
 package com.example.roman.news.presentation.news
 
-import android.util.Log
-import com.example.roman.news.domain.interactor.config.ClearNewsConfigUseCase
-import com.example.roman.news.domain.interactor.config.GetNewsConfigUseCase
+import com.example.roman.news.data.model.News
+import com.example.roman.news.data.model.NewsConfig
+import com.example.roman.news.domain.interactor.configNews.CreateNewsConfigUseCase
+import com.example.roman.news.domain.interactor.configSearch.GetSearchNewsConfigUseCase
 import com.example.roman.news.domain.interactor.news.GetNewsUseCase
+import com.example.roman.news.domain.interactor.news.UpdateNewsUseCase
 import com.example.roman.news.domain.interactor.search.GetSearchUseCase
-import com.example.roman.news.domain.interactor.utils.observable.Next
+import com.example.roman.news.domain.interactor.utils.completable.Complete
 import com.example.roman.news.domain.interactor.utils.single.Success
-import io.reactivex.internal.operators.observable.ObservableError
 import javax.inject.Inject
 
 class NewsPresenter @Inject constructor(
         private val mainView : NewsContract.MainView,
         private val getNewsUseCase: GetNewsUseCase,
         private val searchNewsUseCase: GetSearchUseCase,
-        private val getNewsConfigUseCase: GetNewsConfigUseCase,
-        private val clearNewsConfigUseCase: ClearNewsConfigUseCase
+        private val getSearchNewsConfigUseCase: GetSearchNewsConfigUseCase,
+        private val updateNewsUseCase: UpdateNewsUseCase,
+        private val createNewsConfigUseCase: CreateNewsConfigUseCase
 ) :NewsContract.Presenter{
 
     override fun start() {
-      /* getNewsConfigUseCase.execute(Unit) {
+       getSearchNewsConfigUseCase.execute(Unit) {
            when (it) {
-               is Success -> searchNewsUseCase.execute(it.result.get(it.result.lastIndex).query!!){
+               is Success ->
+                   if (it.result.isEmpty()) {
+                       getTop()
+                   }
+               else
+                   searchNewsUseCase.execute(it.result.get(it.result.lastIndex).query!!){
                    when (it) {
                        is Success -> mainView.showNews(it.result)
-                       is Error -> mainView.showError()
+                       is Error -> getTop()
                    }
                }
                is Error -> mainView.showError()
            }
-       }*/
-getTop()
+       }
     }
 
-    override fun clearConfig() {
-        clearNewsConfigUseCase.execute(Unit){
-            when(it){
+    override fun updateTopHeadlines(country : String) {
+        updateNewsUseCase.execute(country) {
+            when (it) {
+                is Success -> mainView.showNews(it.result)
+                is Error -> mainView.showError()
+            }
+        }
+    }
 
+    override fun createNewsConfig(news: NewsConfig) {
+        createNewsConfigUseCase.execute(news){
+            when (it) {
+                is Complete -> mainView.successConfigure()
+                is Error -> mainView.showError()
             }
         }
     }

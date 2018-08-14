@@ -1,30 +1,29 @@
 package com.example.roman.news.cache
 
 import android.util.Log
-import com.example.roman.news.cache.db.dao.ConfigDao
-import com.example.roman.news.cache.mapper.QueryCacheMapper
-import com.example.roman.news.data.model.ConfigNews
+import com.example.roman.news.cache.db.dao.ConfigNewsDao
+import com.example.roman.news.cache.mapper.NewsConfigCacheMapper
+import com.example.roman.news.data.model.News
+import com.example.roman.news.data.model.NewsConfig
 import com.example.roman.news.data.repository.ConfigNewsCache
 import javax.inject.Inject
 
 class ConfigNewsCacheImpl @Inject constructor(
-        private val configDao: ConfigDao,
-        private val mapper: QueryCacheMapper
+        private val configNewsDao: ConfigNewsDao,
+        private val mapper: NewsConfigCacheMapper
 ) : ConfigNewsCache {
 
-    override fun saveNews(query: ConfigNews) = completableCall {
-        Log.i("asd: ",query.query)
-        configDao.insertQuery(mapper.mapToCache(query))
+    override fun saveNews(news : NewsConfig) = completableCall {
+        configNewsDao.deleteConfigNews()
+        val data = mapper.mapToCache(news)
+        configNewsDao.insertConfigNews(data)
     }
 
     override fun clearAllNews() = completableCall {
-        configDao.deleteAll()
+        configNewsDao.deleteConfigNews()
     }
 
     override fun getNews() = singleCall {
-        configDao.getAll().forEach {
-            Log.i("dsa", it.query + ",")
-        }
-        configDao.getAll().map(mapper::mapFromCache)
+        mapper.mapFromCache(configNewsDao.getConfigNews())
     }
 }

@@ -75,4 +75,5 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:${retrofitConverterVersion}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitAdapterVersion}"
     implementation "com.squareup.picasso:picasso:${picassoVersion}"
+
 }

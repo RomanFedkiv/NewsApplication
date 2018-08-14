@@ -22,6 +22,8 @@ import kotlinx.android.synthetic.main.content_drawer.*
 import javax.inject.Inject
 import android.view.View
 import android.view.animation.AnticipateOvershootInterpolator
+import com.example.roman.news.data.model.NewsConfig
+import com.example.roman.news.ui.adapter.CountryConfig
 import com.example.roman.news.ui.adapter.SearchAdapter
 import com.jakewharton.rxbinding2.widget.RxTextView
 import kotlinx.android.synthetic.main.app_bar_drawer.*
@@ -44,26 +46,25 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    override fun showNews(listNews: List<News>) {
-        Log.i("123",listNews.size.toString())
-        ( news_list.adapter as TopHeadlineAdapter).updateList(listNews)
+    override fun successConfigure() {
+        val intent = Intent(this, DetailNewsActivity::class.java)
+        startActivity(intent)
     }
 
+    override fun showNews(listNews: List<News>) {
+        ( news_list.adapter as TopHeadlineAdapter).updateList(listNews)
+    }
 
     fun initView() {
         fab.setOnClickListener {
             news_list.smoothScrollToPosition(0)
         }
-
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-
         nav_view.setNavigationItemSelectedListener(this)
-
         initRecyclerView()
-
         search_button.setOnClickListener {
             val intent = Intent(this,SearchActivity::class.java)
             startActivity(intent)
@@ -73,7 +74,8 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun initRecyclerView(){
         news_list.layoutManager = LinearLayoutManager(this)
         news_list.adapter = TopHeadlineAdapter{
-
+            val newsConfig = NewsConfig(it.source,it.description,it.title,it.url,it.urlToImage,it.publishedAt)
+            presenter.createNewsConfig(newsConfig)
         }
     }
 
@@ -87,9 +89,37 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.ukr_item -> {
+                searchTopHeadlinesForCountry(CountryConfig.UKRAINE)
+            }
+            R.id.rus_item -> {
+                searchTopHeadlinesForCountry(CountryConfig.RUSSIA)
+            }
+            R.id.eng_item -> {
+                searchTopHeadlinesForCountry(CountryConfig.UNITED_KINGDOM)
+            }
+            R.id.usa_item -> {
+                searchTopHeadlinesForCountry(CountryConfig.USA)
+            }
+            R.id.ger_item -> {
+                searchTopHeadlinesForCountry(CountryConfig.GERMANY)
+            }
+            R.id.pol_item -> {
+                searchTopHeadlinesForCountry(CountryConfig.POLAND)
+            }
+            R.id.tur_item -> {
+                searchTopHeadlinesForCountry(CountryConfig.TURKEY)
+            }
+            R.id.jap_item -> {
+                searchTopHeadlinesForCountry(CountryConfig.JAPAN)
+            }
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun searchTopHeadlinesForCountry(country : String) {
+        presenter.updateTopHeadlines(country)
     }
 
     override fun showError() {

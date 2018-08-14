@@ -1,6 +1,7 @@
-package com.example.roman.news.domain.interactor.config
+package com.example.roman.news.domain.interactor.configNews
 
-import com.example.roman.news.data.model.ConfigNews
+import com.example.roman.news.data.model.News
+import com.example.roman.news.data.model.NewsConfig
 import com.example.roman.news.domain.IOThreadFactory
 import com.example.roman.news.domain.UIThreadFactory
 import com.example.roman.news.domain.interactor.utils.completable.CompletableUseCase
@@ -11,8 +12,8 @@ class CreateNewsConfigUseCase @Inject constructor(
         io: IOThreadFactory,
         ui: UIThreadFactory,
         private val configRepository: NewsConfigRepository
-) : CompletableUseCase<ConfigNews>(io, ui) {
+) : CompletableUseCase<NewsConfig>(io, ui) {
 
-    override fun buildUseCase(param: ConfigNews) = configRepository
+    override fun buildUseCase(param: NewsConfig) = configRepository
             .createConfig(param)
 }

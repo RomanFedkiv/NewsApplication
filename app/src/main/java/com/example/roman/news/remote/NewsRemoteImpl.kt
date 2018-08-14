@@ -13,8 +13,8 @@ class NewsRemoteImpl @Inject constructor(
         private val mapper : Mapper<NewsRemoteEntity, News>
 ) : NewsRemote{
 
-    override fun getTopHeadlines(): Single<List<News>> =
-            api.getTopHeadlinesNews(APIConfig.COUNTRY, APIConfig.PAGE_SIZE, APIConfig.API_KEY)
+    override fun getTopHeadlines(country : String): Single<List<News>> =
+            api.getTopHeadlinesNews(country, APIConfig.PAGE_SIZE, APIConfig.API_KEY)
                     .map {it.data.forEach {
                         Log.i("remote",it.title + ",")
                     }

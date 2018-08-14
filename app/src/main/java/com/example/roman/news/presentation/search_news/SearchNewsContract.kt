@@ -1,6 +1,6 @@
 package com.example.roman.news.presentation.search_news
 
-import com.example.roman.news.data.model.ConfigNews
+import com.example.roman.news.data.model.ConfigSearchNews
 import com.example.roman.news.data.model.News
 import com.example.roman.news.presentation.BasePresenter
 import com.example.roman.news.presentation.BaseView
@@ -16,7 +16,7 @@ interface SearchNewsContract {
 
         fun successConfigure()
 
-        fun showLatestQuery(listLatestQuery : List<ConfigNews>)
+        fun showLatestQuery(listLatestQuery : List<ConfigSearchNews>)
 
         fun clearLatestQuery()
     }

@@ -3,24 +3,26 @@ package com.example.roman.news.di.modules
 import android.app.Application
 import android.content.Context
 import com.example.roman.news.cache.ConfigNewsCacheImpl
+import com.example.roman.news.cache.ConfigSearchNewsCacheImpl
 import com.example.roman.news.cache.NewsCacheImpl
-import com.example.roman.news.cache.db.dao.ConfigDao
+import com.example.roman.news.cache.db.dao.ConfigNewsDao
+import com.example.roman.news.cache.db.dao.ConfigSearchNewsDao
 import com.example.roman.news.cache.db.dao.NewsDao
 import com.example.roman.news.cache.mapper.NewsCacheMapper
+import com.example.roman.news.cache.mapper.NewsConfigCacheMapper
 import com.example.roman.news.cache.mapper.QueryCacheMapper
 import com.example.roman.news.data.NewsConfigRepositoryImpl
+import com.example.roman.news.data.SearchNewsConfigRepositoryImpl
 import com.example.roman.news.data.SearchNewsRepositoryImpl
 import com.example.roman.news.data.NewsRepositoryImpl
-import com.example.roman.news.data.repository.ConfigNewsCache
-import com.example.roman.news.data.repository.NewsCache
-import com.example.roman.news.data.repository.SearchNewsRemote
-import com.example.roman.news.data.repository.NewsRemote
+import com.example.roman.news.data.repository.*
 import com.example.roman.news.di.scopes.PerApplication
 import com.example.roman.news.domain.IOThreadFactory
 import com.example.roman.news.domain.UIThreadFactory
 import com.example.roman.news.domain.repository.NewsConfigRepository
+import com.example.roman.news.domain.repository.SearchNewsConfigRepository
 import com.example.roman.news.domain.repository.SearchNewsRepository
-import com.example.roman.news.domain.repository.TopHeadlinesRepository
+import com.example.roman.news.domain.repository.NewsRepository
 import com.example.roman.news.remote.NewsAPI
 import com.example.roman.news.remote.SearchNewsRemoteImpl
 import com.example.roman.news.remote.NewsRemoteImpl
@@ -50,7 +52,7 @@ class ApplicationModule {
     fun provideTopHeadlinesRepositoryImpl(
             remote: NewsRemote,
             cache : NewsCache
-    ) = NewsRepositoryImpl(remote,cache) as TopHeadlinesRepository
+    ) = NewsRepositoryImpl(remote,cache) as NewsRepository
 
     @Provides @PerApplication
     fun provideSearchNewsRemoteImpl(
@@ -61,8 +63,8 @@ class ApplicationModule {
     @Provides @PerApplication
     fun provideSearchNewsRepositoryImpl(
             remote: SearchNewsRemote,
-            cache : ConfigNewsCache
-    ) = SearchNewsRepositoryImpl(remote,cache) as SearchNewsRepository
+            cacheSearch : ConfigSearchNewsCache
+    ) = SearchNewsRepositoryImpl(remote,cacheSearch) as SearchNewsRepository
 
     @Provides @PerApplication
     fun provideNewsCacheImpl(
@@ -71,14 +73,25 @@ class ApplicationModule {
     ) = NewsCacheImpl(newsDao,mapper) as NewsCache
 
     @Provides @PerApplication
-    fun provideConfigNewsCacheImpl(
-            configDao: ConfigDao,
+    fun provideConfigSearchNewsCacheImpl(
+            configSearchNewsDao: ConfigSearchNewsDao,
             mapper: QueryCacheMapper
-    ) = ConfigNewsCacheImpl(configDao,mapper) as ConfigNewsCache
+    ) = ConfigSearchNewsCacheImpl(configSearchNewsDao,mapper) as ConfigSearchNewsCache
+
+    @Provides @PerApplication
+    fun provideSearchNewsConfigRepositoryImpl(
+            cacheSearch: ConfigSearchNewsCache
+    ) = SearchNewsConfigRepositoryImpl(cacheSearch) as SearchNewsConfigRepository
+
+    @Provides @PerApplication
+    fun provideConfigNewsCacheImpl(
+            configNewsDao: ConfigNewsDao,
+            mapper: NewsConfigCacheMapper
+    ) = ConfigNewsCacheImpl(configNewsDao,mapper) as ConfigNewsCache
 
     @Provides @PerApplication
     fun provideNewsConfigRepositoryImpl(
-            cache: ConfigNewsCache
-    ) = NewsConfigRepositoryImpl(cache) as NewsConfigRepository
+            cacheNews: ConfigNewsCache
+    ) = NewsConfigRepositoryImpl(cacheNews) as NewsConfigRepository
 
 }

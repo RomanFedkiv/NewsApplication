@@ -2,9 +2,10 @@ package com.example.roman.news.di.modules
 
 import com.example.roman.news.ui.NewsActivity
 import com.example.roman.news.di.scopes.PerActivity
-import com.example.roman.news.domain.interactor.config.ClearNewsConfigUseCase
-import com.example.roman.news.domain.interactor.config.GetNewsConfigUseCase
+import com.example.roman.news.domain.interactor.configNews.CreateNewsConfigUseCase
+import com.example.roman.news.domain.interactor.configSearch.GetSearchNewsConfigUseCase
 import com.example.roman.news.domain.interactor.news.GetNewsUseCase
+import com.example.roman.news.domain.interactor.news.UpdateNewsUseCase
 import com.example.roman.news.domain.interactor.search.GetSearchUseCase
 import com.example.roman.news.presentation.news.NewsContract
 import com.example.roman.news.presentation.news.NewsPresenter
@@ -23,8 +24,9 @@ class NewsModule {
     fun providePresenter(mainView: NewsContract.MainView,
                          getNewsUseCase:  GetNewsUseCase,
                          searchNewsUseCase: GetSearchUseCase,
-                         getNewsConfigUseCase: GetNewsConfigUseCase,
-                         clearNewsConfigUseCase: ClearNewsConfigUseCase) =
-           NewsPresenter(mainView, getNewsUseCase, searchNewsUseCase,getNewsConfigUseCase,
-           clearNewsConfigUseCase) as NewsContract.Presenter
+                         getSearchNewsConfigUseCase: GetSearchNewsConfigUseCase,
+                         updateNewsUseCase: UpdateNewsUseCase,
+                         createNewsConfigUseCase: CreateNewsConfigUseCase) =
+           NewsPresenter(mainView, getNewsUseCase, searchNewsUseCase,getSearchNewsConfigUseCase,
+           updateNewsUseCase, createNewsConfigUseCase) as NewsContract.Presenter
 }

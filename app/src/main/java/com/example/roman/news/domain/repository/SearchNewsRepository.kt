@@ -1,7 +1,7 @@
 package com.example.roman.news.domain.repository
 
 import com.example.roman.news.data.model.News
-import com.example.roman.news.data.model.ConfigNews
+import com.example.roman.news.data.model.ConfigSearchNews
 import io.reactivex.Single
 
 interface SearchNewsRepository {
@@ -10,7 +10,7 @@ interface SearchNewsRepository {
 
     fun searchNews(query: String): Single<List<News>>
 
-    fun insertLatestQuery(query: ConfigNews)
+    fun insertLatestQuery(query: ConfigSearchNews)
 
-    fun getLatestsQuery() : Single<List<ConfigNews>>
+    fun getLatestsQuery() : Single<List<ConfigSearchNews>>
 }

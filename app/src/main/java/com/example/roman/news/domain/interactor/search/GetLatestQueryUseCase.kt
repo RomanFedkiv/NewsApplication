@@ -1,6 +1,6 @@
 package com.example.roman.news.domain.interactor.search
 
-import com.example.roman.news.data.model.ConfigNews
+import com.example.roman.news.data.model.ConfigSearchNews
 import com.example.roman.news.domain.IOThreadFactory
 import com.example.roman.news.domain.UIThreadFactory
 import com.example.roman.news.domain.interactor.utils.single.SingleUseCase
@@ -12,9 +12,9 @@ class GetLatestQueryUseCase @Inject constructor(
         io: IOThreadFactory,
         ui: UIThreadFactory,
         private val repository: SearchNewsRepository
-) : SingleUseCase<List<ConfigNews>, Unit>(io, ui) {
+) : SingleUseCase<List<ConfigSearchNews>, Unit>(io, ui) {
 
-    override fun buildUseCase(param : Unit): Single<List<ConfigNews>> =
+    override fun buildUseCase(param : Unit): Single<List<ConfigSearchNews>> =
             repository.getLatestsQuery()
 
 }

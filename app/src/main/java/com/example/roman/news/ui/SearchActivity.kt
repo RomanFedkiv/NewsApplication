@@ -2,18 +2,13 @@ package com.example.roman.news.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.constraint.ConstraintSet
-import android.support.transition.ChangeBounds
-import android.support.transition.TransitionManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.Window
-import android.view.animation.AnticipateOvershootInterpolator
 import com.example.roman.news.R
-import com.example.roman.news.data.model.ConfigNews
+import com.example.roman.news.data.model.ConfigSearchNews
 import com.example.roman.news.data.model.News
 import com.example.roman.news.presentation.search_news.SearchNewsContract
 import com.example.roman.news.ui.adapter.LatestQueryAdapter
@@ -46,7 +41,7 @@ class SearchActivity : AppCompatActivity(), SearchNewsContract.SearchView{
             result_list.visibility = VISIBLE
         }
         search_Button.setOnClickListener {
-            actionWithClick(query_edit.text.toString())
+            if (query_edit!=null) actionWithClick(query_edit.text.toString())
         }
         clear_all.setOnClickListener {
             presenter.clearLatestQuery()
@@ -90,7 +85,7 @@ class SearchActivity : AppCompatActivity(), SearchNewsContract.SearchView{
         startActivity(intent)
     }
 
-    override fun showLatestQuery(listLatestQuery: List<ConfigNews>) {
+    override fun showLatestQuery(listLatestQuery: List<ConfigSearchNews>) {
         (latest_query_list.adapter as LatestQueryAdapter).updateList(listLatestQuery.reversed())
 }
 
