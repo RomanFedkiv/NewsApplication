@@ -16,6 +16,10 @@ interface NewsContract {
         fun showError()
 
         fun successConfigure()
+
+        fun showLoading()
+
+        fun hideLoading()
     }
 
 

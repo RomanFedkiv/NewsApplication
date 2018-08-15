@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.content_drawer.*
 import javax.inject.Inject
 import android.view.View
 import android.view.animation.AnticipateOvershootInterpolator
+import android.widget.Toast
 import com.example.roman.news.data.model.NewsConfig
 import com.example.roman.news.ui.adapter.CountryConfig
 import com.example.roman.news.ui.adapter.SearchAdapter
@@ -79,6 +80,14 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    override fun showLoading() {
+        progressBar2.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        progressBar2.visibility = View.INVISIBLE
+    }
+
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
@@ -123,6 +132,6 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun showError() {
-        presenter.stop()
+        Toast.makeText(this,"Bad internet connection", Toast.LENGTH_LONG).show()
     }
 }

@@ -13,7 +13,7 @@ class SearchNewsRemoteImpl @Inject constructor(
 ) : SearchNewsRemote {
 
     override fun searchNews(query: String): Single<List<News>> =
-        api.searchNews(query, APIConfig.API_KEY)
+        api.searchNews(query, APIConfig.LANGUAGE, APIConfig.API_KEY)
                 .map { it.data }
                 .map { it.map(mapper::map) }
 }

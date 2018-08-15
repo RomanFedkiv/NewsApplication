@@ -10,5 +10,7 @@ interface ConfigSearchNewsCache {
 
     fun clearAllNews(): Completable
 
+    fun clearQueryByTitle(query : String) : Completable
+
     fun getNews(): Single<List<ConfigSearchNews>>
 }

@@ -18,6 +18,9 @@ interface ConfigSearchNewsDao {
     @Query("DELETE FROM $TABLE_NAME")
     fun deleteAll()
 
+    @Query("DELETE FROM $TABLE_NAME WHERE query = :title")
+    fun deleteByTitle(title : String)
+
     @Query("SELECT * FROM $TABLE_NAME")
     fun getAll(): List<QueryCacheEntity>
 }

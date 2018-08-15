@@ -5,6 +5,7 @@ import com.example.roman.news.domain.interactor.configSearch.ClearSearchNewsConf
 import com.example.roman.news.domain.interactor.configSearch.CreateSearchNewsConfigUseCase
 import com.example.roman.news.domain.interactor.configSearch.GetSearchNewsConfigUseCase
 import com.example.roman.news.domain.interactor.search.GetSearchForSaerchNewsUseCase
+import com.example.roman.news.domain.interactor.search.GetSearchUseCase
 import com.example.roman.news.domain.interactor.utils.observable.Next
 import javax.inject.Inject
 import io.reactivex.Observable
@@ -17,8 +18,9 @@ class SearchNewsPresenter @Inject constructor(
         private val searchForSaerchNewsUseCase: GetSearchForSaerchNewsUseCase,
         private val createSearchNewsConfigUseCase: CreateSearchNewsConfigUseCase,
         private val getSearchNewsConfigUseCase: GetSearchNewsConfigUseCase,
-        private val clearSearchNewsConfigUseCase: ClearSearchNewsConfigUseCase
-) : SearchNewsContract.Presenter{
+        private val clearSearchNewsConfigUseCase: ClearSearchNewsConfigUseCase,
+        private val searchNewsUseCase: GetSearchUseCase
+        ) : SearchNewsContract.Presenter{
 
     override fun start() {
         getSearchNewsConfigUseCase.execute(Unit){
@@ -41,7 +43,18 @@ class SearchNewsPresenter @Inject constructor(
     override fun createConfig(query: String?) {
         createSearchNewsConfigUseCase.execute(ConfigSearchNews(query)){
             when (it) {
-                is Complete -> searchView.successConfigure()
+                is Complete -> searchNews(query!!)
+                is Error -> searchView.showError()
+            }
+        }
+    }
+
+    private fun searchNews(query: String) {
+        searchView.showLoading()
+        searchNewsUseCase.execute(query) {
+            searchView.hideLoading()
+            when (it) {
+                is Success -> searchView.successConfigure()
                 is Error -> searchView.showError()
             }
         }

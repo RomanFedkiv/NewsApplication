@@ -5,6 +5,7 @@ import com.example.roman.news.domain.interactor.configSearch.ClearSearchNewsConf
 import com.example.roman.news.domain.interactor.configSearch.CreateSearchNewsConfigUseCase
 import com.example.roman.news.domain.interactor.configSearch.GetSearchNewsConfigUseCase
 import com.example.roman.news.domain.interactor.search.GetSearchForSaerchNewsUseCase
+import com.example.roman.news.domain.interactor.search.GetSearchUseCase
 import com.example.roman.news.presentation.search_news.SearchNewsContract
 import com.example.roman.news.presentation.search_news.SearchNewsPresenter
 import com.example.roman.news.ui.SearchActivity
@@ -24,7 +25,9 @@ class SearchModule {
                          getSearchForSaerchNewsUseCase: GetSearchForSaerchNewsUseCase,
                          createSearchNewsConfigUseCase: CreateSearchNewsConfigUseCase,
                          getSearchNewsConfigUseCase: GetSearchNewsConfigUseCase,
-                         clearSearchNewsConfigUseCase: ClearSearchNewsConfigUseCase) =
+                         clearSearchNewsConfigUseCase: ClearSearchNewsConfigUseCase,
+                         searchNewsUseCase: GetSearchUseCase) =
             SearchNewsPresenter(mainView, getSearchForSaerchNewsUseCase,
-                    createSearchNewsConfigUseCase,getSearchNewsConfigUseCase,clearSearchNewsConfigUseCase) as SearchNewsContract.Presenter
+                    createSearchNewsConfigUseCase,getSearchNewsConfigUseCase,clearSearchNewsConfigUseCase,
+                    searchNewsUseCase) as SearchNewsContract.Presenter
 }

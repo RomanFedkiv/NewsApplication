@@ -19,6 +19,10 @@ interface SearchNewsContract {
         fun showLatestQuery(listLatestQuery : List<ConfigSearchNews>)
 
         fun clearLatestQuery()
+
+        fun showLoading()
+
+        fun hideLoading()
     }
 
 

@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.Window
+import android.widget.Toast
 import com.example.roman.news.R
 import com.example.roman.news.data.model.ConfigSearchNews
 import com.example.roman.news.data.model.News
@@ -72,6 +73,14 @@ class SearchActivity : AppCompatActivity(), SearchNewsContract.SearchView{
         }
     }
 
+    override fun showLoading() {
+        progressBar.visibility = VISIBLE
+    }
+
+    override fun hideLoading() {
+        progressBar.visibility = INVISIBLE
+    }
+
     override fun clearLatestQuery() {
         (latest_query_list.adapter as LatestQueryAdapter).clearList()
     }
@@ -94,5 +103,6 @@ class SearchActivity : AppCompatActivity(), SearchNewsContract.SearchView{
     }
 
     override fun showError() {
+        Toast.makeText(this,"Bad internet connection", Toast.LENGTH_LONG).show()
     }
 }

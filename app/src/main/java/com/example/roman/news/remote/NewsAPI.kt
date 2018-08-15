@@ -13,7 +13,8 @@ interface NewsAPI {
             : Single<Responce<List<NewsRemoteEntity>>>
 
     @GET("everything")
-    fun searchNews(@Query("q") query: String, @Query("apiKey") apiKey:String)
+    fun searchNews(@Query("q") query: String,@Query("language") language:String,
+                   @Query("apiKey") apiKey:String)
             : Single<Responce<List<NewsRemoteEntity>>>
 
 

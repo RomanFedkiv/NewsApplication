@@ -14,33 +14,23 @@ import javax.inject.Inject
 class NewsPresenter @Inject constructor(
         private val mainView : NewsContract.MainView,
         private val getNewsUseCase: GetNewsUseCase,
-        private val searchNewsUseCase: GetSearchUseCase,
-        private val getSearchNewsConfigUseCase: GetSearchNewsConfigUseCase,
         private val updateNewsUseCase: UpdateNewsUseCase,
         private val createNewsConfigUseCase: CreateNewsConfigUseCase
 ) :NewsContract.Presenter{
 
     override fun start() {
-       getSearchNewsConfigUseCase.execute(Unit) {
-           when (it) {
-               is Success ->
-                   if (it.result.isEmpty()) {
-                       getTop()
-                   }
-               else
-                   searchNewsUseCase.execute(it.result.get(it.result.lastIndex).query!!){
-                   when (it) {
-                       is Success -> mainView.showNews(it.result)
-                       is Error -> getTop()
-                   }
-               }
-               is Error -> mainView.showError()
-           }
-       }
+        getNewsUseCase.execute(Unit) {
+            when(it) {
+                is Success -> mainView.showNews(it.result)
+                is Error -> mainView.showError()
+            }
+        }
     }
 
     override fun updateTopHeadlines(country : String) {
+        mainView.showLoading()
         updateNewsUseCase.execute(country) {
+            mainView.hideLoading()
             when (it) {
                 is Success -> mainView.showNews(it.result)
                 is Error -> mainView.showError()
@@ -57,14 +47,6 @@ class NewsPresenter @Inject constructor(
         }
     }
 
-    private fun getTop() {
-        getNewsUseCase.execute(Unit) {
-            when(it) {
-                is Success -> mainView.showNews(it.result)
-                is Error -> mainView.showError()
-            }
-        }
-    }
     override fun stop() {
         getNewsUseCase.dispose()
     }

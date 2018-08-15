@@ -23,10 +23,8 @@ class NewsModule {
     @PerActivity
     fun providePresenter(mainView: NewsContract.MainView,
                          getNewsUseCase:  GetNewsUseCase,
-                         searchNewsUseCase: GetSearchUseCase,
-                         getSearchNewsConfigUseCase: GetSearchNewsConfigUseCase,
                          updateNewsUseCase: UpdateNewsUseCase,
                          createNewsConfigUseCase: CreateNewsConfigUseCase) =
-           NewsPresenter(mainView, getNewsUseCase, searchNewsUseCase,getSearchNewsConfigUseCase,
+           NewsPresenter(mainView, getNewsUseCase,
            updateNewsUseCase, createNewsConfigUseCase) as NewsContract.Presenter
 }

@@ -63,8 +63,9 @@ class ApplicationModule {
     @Provides @PerApplication
     fun provideSearchNewsRepositoryImpl(
             remote: SearchNewsRemote,
-            cacheSearch : ConfigSearchNewsCache
-    ) = SearchNewsRepositoryImpl(remote,cacheSearch) as SearchNewsRepository
+            cacheSearch : ConfigSearchNewsCache,
+            cacheNews : NewsCache
+    ) = SearchNewsRepositoryImpl(remote,cacheSearch, cacheNews) as SearchNewsRepository
 
     @Provides @PerApplication
     fun provideNewsCacheImpl(

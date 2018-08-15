@@ -3,10 +3,7 @@ package com.example.roman.news.ui
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import com.example.roman.news.R
-import com.example.roman.news.WebDetailView
-import com.example.roman.news.data.model.News
 import com.example.roman.news.data.model.NewsConfig
 import com.example.roman.news.presentation.news_detail.NewsDetailContract
 import com.squareup.picasso.Picasso
