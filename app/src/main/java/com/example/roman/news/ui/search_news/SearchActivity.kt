@@ -1,4 +1,4 @@
-package com.example.roman.news.ui
+package com.example.roman.news.ui.search_news
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,8 +12,9 @@ import com.example.roman.news.R
 import com.example.roman.news.data.model.ConfigSearchNews
 import com.example.roman.news.data.model.News
 import com.example.roman.news.presentation.search_news.SearchNewsContract
-import com.example.roman.news.ui.adapter.LatestQueryAdapter
-import com.example.roman.news.ui.adapter.SearchAdapter
+import com.example.roman.news.ui.search_news.adapter.LatestQueryAdapter
+import com.example.roman.news.ui.search_news.adapter.SearchAdapter
+import com.example.roman.news.ui.news.NewsActivity
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_search.*
@@ -23,6 +24,8 @@ import javax.inject.Inject
 class SearchActivity : AppCompatActivity(), SearchNewsContract.SearchView{
 
     @Inject override lateinit var presenter: SearchNewsContract.Presenter
+
+    lateinit var mainSearchString : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +62,11 @@ class SearchActivity : AppCompatActivity(), SearchNewsContract.SearchView{
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .distinct()
 
-      if (query_edit!=null) presenter.initSearch(queryObserver)
+      if (query_edit!=null)
+      {
+          presenter.initSearch(queryObserver)
+          mainSearchString = queryObserver.toString()
+      }
     }
 
     private fun initRecyclerView(){

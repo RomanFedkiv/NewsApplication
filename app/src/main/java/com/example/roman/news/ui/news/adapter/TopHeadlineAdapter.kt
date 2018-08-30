@@ -1,14 +1,10 @@
-package com.example.roman.news.ui.adapter
+package com.example.roman.news.ui.news.adapter
 
-import android.content.ClipData
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.example.roman.news.R
 import com.example.roman.news.data.model.News
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_top_headlines.view.*
 
 class TopHeadlineAdapter(
         private val itemClickListener: (News) -> Unit

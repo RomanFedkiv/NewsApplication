@@ -1,12 +1,10 @@
 package com.example.roman.news.di.modules
 
-import com.example.roman.news.ui.NewsActivity
+import com.example.roman.news.ui.news.NewsActivity
 import com.example.roman.news.di.scopes.PerActivity
 import com.example.roman.news.domain.interactor.configNews.CreateNewsConfigUseCase
-import com.example.roman.news.domain.interactor.configSearch.GetSearchNewsConfigUseCase
 import com.example.roman.news.domain.interactor.news.GetNewsUseCase
 import com.example.roman.news.domain.interactor.news.UpdateNewsUseCase
-import com.example.roman.news.domain.interactor.search.GetSearchUseCase
 import com.example.roman.news.presentation.news.NewsContract
 import com.example.roman.news.presentation.news.NewsPresenter
 import dagger.Module

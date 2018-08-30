@@ -20,7 +20,6 @@ class GetSearchForSaerchNewsUseCase @Inject constructor(
 
     override fun buildUseCase(param: Observable<String>) = param
             .flatMapSingle {
-                Log.i("query3", it)
                 searchRepository.searchNewsForNewsInput(it)
                         .onErrorResumeNext { Log.i("Error", it.toString())
                             when (it) {

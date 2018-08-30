@@ -1,4 +1,4 @@
-package com.example.roman.news.ui.adapter
+package com.example.roman.news.ui.search_news.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

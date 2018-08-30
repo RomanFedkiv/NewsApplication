@@ -8,7 +8,7 @@ import com.example.roman.news.domain.interactor.search.GetSearchForSaerchNewsUse
 import com.example.roman.news.domain.interactor.search.GetSearchUseCase
 import com.example.roman.news.presentation.search_news.SearchNewsContract
 import com.example.roman.news.presentation.search_news.SearchNewsPresenter
-import com.example.roman.news.ui.SearchActivity
+import com.example.roman.news.ui.search_news.SearchActivity
 import dagger.Module
 import dagger.Provides
 

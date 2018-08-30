@@ -1,4 +1,4 @@
-package com.example.roman.news.ui.adapter
+package com.example.roman.news.ui.news.adapter
 
 object CountryConfig {
     const val UKRAINE = "ua"

@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ui.NewsActivity">
+        <activity android:name=".ui.news.NewsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +22,7 @@
         <activity android:name=".ui.DetailNewsActivity">
 
         </activity>
-        <activity android:name=".ui.SearchActivity">
+        <activity android:name=".ui.search_news.SearchActivity">
             android:windowSoftInputMode="stateHidden"
         </activity>
         <activity android:name=".ui.WebDetailView">

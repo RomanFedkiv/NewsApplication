@@ -1,35 +1,28 @@
-package com.example.roman.news.ui
+package com.example.roman.news.ui.news
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.constraint.ConstraintSet
 import android.support.design.widget.NavigationView
-import android.support.transition.ChangeBounds
-import android.support.transition.TransitionManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.MenuItem
 import com.example.roman.news.R
 import com.example.roman.news.data.model.News
 import com.example.roman.news.presentation.news.NewsContract
-import com.example.roman.news.ui.adapter.TopHeadlineAdapter
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_drawer.*
 import kotlinx.android.synthetic.main.content_drawer.*
 import javax.inject.Inject
 import android.view.View
-import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.Toast
 import com.example.roman.news.data.model.NewsConfig
-import com.example.roman.news.ui.adapter.CountryConfig
-import com.example.roman.news.ui.adapter.SearchAdapter
-import com.jakewharton.rxbinding2.widget.RxTextView
+import com.example.roman.news.ui.DetailNewsActivity
+import com.example.roman.news.ui.news.adapter.CountryConfig
+import com.example.roman.news.ui.news.adapter.TopHeadlineAdapter
+import com.example.roman.news.ui.search_news.SearchActivity
 import kotlinx.android.synthetic.main.app_bar_drawer.*
-
-import java.util.concurrent.TimeUnit
 
 
 class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, NewsContract.MainView {
@@ -67,15 +60,15 @@ class NewsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
         initRecyclerView()
         search_button.setOnClickListener {
-            val intent = Intent(this,SearchActivity::class.java)
+            val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
         }
     }
 
     private fun initRecyclerView(){
         news_list.layoutManager = LinearLayoutManager(this)
-        news_list.adapter = TopHeadlineAdapter{
-            val newsConfig = NewsConfig(it.source,it.description,it.title,it.url,it.urlToImage,it.publishedAt)
+        news_list.adapter = TopHeadlineAdapter {
+            val newsConfig = NewsConfig(it.source, it.description, it.title, it.url, it.urlToImage, it.publishedAt)
             presenter.createNewsConfig(newsConfig)
         }
     }
